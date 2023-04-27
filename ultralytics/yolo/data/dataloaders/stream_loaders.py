@@ -253,10 +253,12 @@ class LoadImages:
             if im0 is None:
                 raise FileNotFoundError(f'Image Not Found {path}')
             s = f'image {self.count}/{self.nf} {path}: '
-
+           
+        # shadow 对图像进行transforms操作，数据增强
         if self.transforms:
             im = self.transforms(im0)  # transforms
         else:
+            # 没有数据增强操作时就简单对图像进行放缩+裁剪操作，更换tensor维度即可
             im = LetterBox(self.imgsz, self.auto, stride=self.stride)(image=im0)
             im = im.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
             im = np.ascontiguousarray(im)  # contiguous
