@@ -129,7 +129,7 @@ def make_divisible(x, divisor):
         divisor = int(divisor.max())  # to int
     return math.ceil(x / divisor) * divisor
 
-
+# shadow 非极大值抑制，这里的max_nms设置为30000，默认操作
 def non_max_suppression(
         prediction,
         conf_thres=0.25,
